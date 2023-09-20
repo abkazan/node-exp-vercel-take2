@@ -6,8 +6,8 @@ const admin = require("firebase-admin");
 // Middlewares
 const app = express();
 const testEnv = () => {
-    console.log('Testing the environment');
-    console.log(process.env.PROJECT_ID);
+    console.log('Testing the environment ', process.env.PROJECT_ID);
+    
 };
 testEnv();
 const serviceAccount = {
