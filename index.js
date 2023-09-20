@@ -10,6 +10,7 @@ const app = express();
     
 };
 testEnv(); */
+
 const serviceAccount = {
     projectId: process.env.PROJECT_ID,
     privateKeyId: process.env.PRIVATE_KEY_ID,
@@ -22,6 +23,7 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: process.env.STORAGE_BUCKET,
 });
+console.log('app initialized');
 app.use(express.json());
 // Routes
 app.use("/home", home);
@@ -31,12 +33,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
+    console.log('made it here in api :)');
     const db = admin.firestore();
     const docRef = db.collection('test').doc('testData');
 
     docRef.get()
         .then((doc) => {
             if (doc.exists) {
+                console.log('we out here...');
                 const data = doc.data();
                 res.json({ "data": data });
             } else {
