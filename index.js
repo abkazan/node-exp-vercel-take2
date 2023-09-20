@@ -37,13 +37,8 @@ app.get("/api", (req, res) => {
     console.log('made it here in api :)');
     const db = admin.firestore();
     const docRef = db.collection('test').doc('testData');
-    console.log('made it here in api again :)');
-    console.log(`Typeof docRef: ${typeof docRef}`);
-    console.log(`Printing docRef: ${docRef}`);
-    console.log(`Typeof docRef.get(): ${typeof docRef.get()}`);
-    console.log(`printing docRef.get(): ${docRef.get()}`);
     
-    /* docRef.get().then((doc) => {
+    docRef.get().then((doc) => {
         console.log('we out here...');
         if (doc.exists) {
             const data = doc.data();
@@ -55,7 +50,7 @@ app.get("/api", (req, res) => {
         .catch((error) => {
             console.log('Error getting document:', error);
             res.status(500).json({ "error": "Internal Server Error" });
-        }); */
+        });
 
 });
 
