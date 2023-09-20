@@ -11,13 +11,19 @@ const app = express();
     
 };
 testEnv(); */
-app.use(bodyParser.json());
+
 const serviceAccount = {
-    projectId: process.env.PROJECT_ID,
-    privateKeyId: process.env.PRIVATE_KEY_ID,
-    privateKey: process.env.PRIVATE_KEY.split(String.raw`\n`).join('\n'),
-    clientEmail: process.env.CLIENT_EMAIL,
-    clientId: process.env.CLIENT_ID
+    "type": "service_account",
+    "project_id": process.env.PROJECT_ID,
+    "private_key_id": process.env.PRIVATE_KEY_ID,
+    "private_key": process.env.PRIVATE_KEY.split(String.raw`\n`).join('\n'),
+    "client_email": process.env.CLIENT_EMAIL,
+    "client_id": process.env.CLIENT_ID,
+    "auth_uri": process.env.AUTH_URI,
+    "token_uri": process.env.TOKEN_URI,
+    "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_CERT,
+    "client_x509_cert_url": process.env.CLIENT_CERT,
+    "universe_domain": process.env.UNICERSE_DOMAIN
 };
 
 admin.initializeApp({
@@ -25,6 +31,7 @@ admin.initializeApp({
     storageBucket: process.env.STORAGE_BUCKET,
 });
 
+app.use(bodyParser.json());
 
 // Routes
 app.use("/home", home);
@@ -37,7 +44,7 @@ app.get("/api", (req, res) => {
     console.log('made it here in api :)');
     const db = admin.firestore();
     const docRef = db.collection('test').doc('testData');
-    
+
     docRef.get().then((doc) => {
         console.log('we out here...');
         if (doc.exists) {
