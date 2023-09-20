@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 
 // Middlewares
 const app = express();
-
+console.log("private key: ", process.env.PRIVATE_KEY);
 const serviceAccount = {
     projectId: process.env.PROJECT_ID,
     privateKeyId: process.env.PRIVATE_KEY_ID,
