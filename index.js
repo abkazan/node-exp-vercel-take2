@@ -5,15 +5,15 @@ const admin = require("firebase-admin");
 
 // Middlewares
 const app = express();
-const testEnv = () => {
+/* const testEnv = () => {
     console.log('Testing the environment ', process.env.PRIVATE_KEY);
     
 };
-testEnv();
+testEnv(); */
 const serviceAccount = {
     projectId: process.env.PROJECT_ID,
     privateKeyId: process.env.PRIVATE_KEY_ID,
-    privateKey: process.env.PRIVATE_KEY,
+    privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
     clientEmail: process.env.CLIENT_EMAIL,
     clientId: process.env.CLIENT_ID
 };
