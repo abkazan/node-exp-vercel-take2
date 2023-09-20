@@ -2,6 +2,7 @@
 const express = require("express");
 const home = require("./routes/home");
 const admin = require("firebase-admin");
+const bodyParser = require('body-parser');
 
 // Middlewares
 const app = express();
@@ -10,7 +11,7 @@ const app = express();
     
 };
 testEnv(); */
-
+app.use(bodyParser.json());
 const serviceAccount = {
     projectId: process.env.PROJECT_ID,
     privateKeyId: process.env.PRIVATE_KEY_ID,
@@ -23,8 +24,8 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: process.env.STORAGE_BUCKET,
 });
-console.log('app initialized');
-app.use(express.json());
+
+
 // Routes
 app.use("/home", home);
 
@@ -37,16 +38,15 @@ app.get("/api", (req, res) => {
     const db = admin.firestore();
     const docRef = db.collection('test').doc('testData');
     console.log('made it here in api again :)');
-    docRef.get()
-        .then((doc) => {
-            if (doc.exists) {
-                console.log('we out here...');
-                const data = doc.data();
-                res.json({ "data": data });
-            } else {
-                res.json({ "data": [] });
-            }
-        })
+    docRef.get().then((doc) => {
+        console.log('we out here...');
+        if (doc.exists) {
+            const data = doc.data();
+            res.json({ "data": data });
+        } else {
+            res.json({ "data": [] });
+        }
+    })
         .catch((error) => {
             console.log('Error getting document:', error);
             res.status(500).json({ "error": "Internal Server Error" });
