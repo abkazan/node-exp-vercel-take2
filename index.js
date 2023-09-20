@@ -3,8 +3,8 @@ const express = require("express");
 const home = require("./routes/home");
 const admin = require("firebase-admin");
 const bodyParser = require('body-parser');
-
-// Middlewares
+/* const serviceAccount = require('./!important/database-bb490-firebase-adminsdk-4r6l5-af4d5fe47b.json');
+ */// Middlewares
 const app = express();
 /* const testEnv = () => {
     console.log('Testing the environment ', process.env.PRIVATE_KEY);
