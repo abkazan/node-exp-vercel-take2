@@ -36,7 +36,7 @@ app.get("/api", (req, res) => {
     console.log('made it here in api :)');
     const db = admin.firestore();
     const docRef = db.collection('test').doc('testData');
-
+    console.log('made it here in api again :)');
     docRef.get()
         .then((doc) => {
             if (doc.exists) {
