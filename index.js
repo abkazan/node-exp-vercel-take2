@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 const serviceAccount = {
     projectId: process.env.PROJECT_ID,
     privateKeyId: process.env.PRIVATE_KEY_ID,
-    privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
+    privateKey: process.env.PRIVATE_KEY.split(String.raw`\n`).join('\n'),
     clientEmail: process.env.CLIENT_EMAIL,
     clientId: process.env.CLIENT_ID
 };
